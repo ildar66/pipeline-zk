@@ -12,9 +12,8 @@ import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Textbox;
 
-import ru.masterdm.spo.service.IIndustryPipelineService;
-
-import ru.md.domain.pipeline.DealCount;
+import ru.masterdm.spo.pipeline.domain.DealCount;
+import ru.masterdm.spo.pipeline.services.IndustryPipelineService;
 
 /**
  * Количество и суммы сделок по отраслям и компаниям View Model.
@@ -26,7 +25,7 @@ public class BranchesAndGCoVM {
     private String searchString;
 
     @WireVariable
-    private IIndustryPipelineService industryPipelineService;
+    private IndustryPipelineService industryPipelineService;
 
     /**
      * ViewModel initialization method.

@@ -177,25 +177,25 @@ public class LayoutVM {
     /**
      * @return list reports
      */
- /*   public List<ReportSetting> getReports() {
-        *//*if (currentUser == null){
+/*    public List<ReportSetting> getReports() {
+        if (currentUser == null) {
             return new ArrayList<>();
-        return SBeanLocator.getDashboardMapper().getNamedPipelineSettings(currentUser.getId());*//*
-        List<ReportSetting> presentationList = new ArrayList<ReportSetting>();
-        ReportSetting vo = new ReportSetting();
-        vo.setId(1L);
-        vo.setName("Отчет 1");
-        presentationList.add(vo);
-        vo = new ReportSetting();
-        vo.setId(2L);
-        vo.setName("Отчет 2");
-        presentationList.add(vo);
-        vo = new ReportSetting();
-        vo.setId(3L);
-        vo.setName("Отчет 3");
-        presentationList.add(vo);
-        return presentationList;
-    }*/
+            return SBeanLocator.getDashboardMapper().getNamedPipelineSettings(currentUser.getId());
+            List<ReportSetting> presentationList = new ArrayList<ReportSetting>();
+            ReportSetting vo = new ReportSetting();
+            vo.setId(1L);
+            vo.setName("Отчет 1");
+            presentationList.add(vo);
+            vo = new ReportSetting();
+            vo.setId(2L);
+            vo.setName("Отчет 2");
+            presentationList.add(vo);
+            vo = new ReportSetting();
+            vo.setId(3L);
+            vo.setName("Отчет 3");
+            presentationList.add(vo);
+            return presentationList;
+        }*/
 
     /**
      * @param rn
@@ -218,6 +218,7 @@ public class LayoutVM {
      * Returns is home page.
      * @return is home page
      */
+
     public boolean isHomePage() {
         return homePage;
     }

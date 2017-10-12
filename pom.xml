@@ -17,6 +17,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <org.springframework-version>4.1.4.RELEASE</org.springframework-version>
         <ojdbc.version>6.0</ojdbc.version>
+        <java.version>1.7</java.version>
     </properties>
 
     <modules>

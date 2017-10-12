@@ -62,7 +62,7 @@
                                     <nav popup="reportSavePopup" label="Сохранить конфигурацию" iconSclass="z-icon-save" />
                                 </navbar>
                                 <h:br /><h:br />
-                                <h:ul class="filter-list">
+                                <!--<h:ul class="filter-list">
                                     <forEach items="@load(vm.reports)" var="rep">
                                         <h:li><a sclass="filter-link" onClick="@global-command('reportApply', rn=rep.id)">
                                             <label value="@load(rep.name)"></label></a>
@@ -71,7 +71,7 @@
                                                     <h:img src="img/buttones_01.png" /></span></a>
                                             <div sclass="ajs-layer-placeholder"></div></h:li>
                                     </forEach>
-                                </h:ul>
+                                </h:ul>-->
                             </div>
                             <!--<timer id="keepAliveTimer" delay="@load(vm.sessionKeepAliveInterval)" running="true" repeats="true"
                                    onTimer="@command('keepAlive')"/>-->

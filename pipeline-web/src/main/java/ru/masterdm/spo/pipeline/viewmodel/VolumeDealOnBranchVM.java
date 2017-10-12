@@ -6,9 +6,8 @@ import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Column;
 
-import ru.masterdm.spo.service.IIndustryPipelineService;
-
-import ru.md.domain.pipeline.DealVolume;
+import ru.masterdm.spo.pipeline.domain.DealVolume;
+import ru.masterdm.spo.pipeline.services.IndustryPipelineService;
 
 /**
  * Объем сделок по отраслям View Model.
@@ -20,7 +19,7 @@ public class VolumeDealOnBranchVM {
     // private final static Logger logger = LoggerFactory.getLogger(VolumeDealOnBranchVM.class);
 
     @WireVariable
-    private IIndustryPipelineService industryPipelineService;
+    private IndustryPipelineService industryPipelineService;
 
     /**
      * @return лист объемов сделок по отраслям
