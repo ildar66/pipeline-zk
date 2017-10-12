@@ -24,6 +24,12 @@
             <version>1.7.10</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.oracle.jdbc</groupId>
+            <artifactId>ojdbc</artifactId>
+            <version>${ojdbc.version}</version>
+        </dependency>
+
         <!-- MyBatis -->
         <dependency>
             <groupId>org.mybatis</groupId>

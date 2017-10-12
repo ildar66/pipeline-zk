@@ -16,6 +16,7 @@
         <maven.build.timestamp.format>MM.dd.yyyy.HH:mm</maven.build.timestamp.format>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <org.springframework-version>4.1.4.RELEASE</org.springframework-version>
+        <ojdbc.version>6.0</ojdbc.version>
     </properties>
 
     <modules>
