@@ -1,13 +1,18 @@
 <?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
 <zk>
     <window apply="org.zkoss.bind.BindComposer" border="none" title="Выдачи, ближайшие"
-            viewModel="@id('vm') @init('ru.masterdm.spo.pipeline.viewmodel.NearbyIssuesViewModel')">
-        <grid model="@load(vm.issues)" mold="paging" pageSize="5">
-            <columns sizable="true" menupopup="auto" >
+            viewModel="@id('nivm') @init('ru.masterdm.spo.pipeline.viewmodel.NearbyIssuesViewModel')">
+        <grid model="@load(nivm.issues)" mold="paging" pageSize="5">
+            <!--<columns sizable="true" menupopup="auto" >
                 <column label="" />
                 <column label=" " draggable="colIssue" droppable="colIssue" onDrop="move(event.dragged)" sort="auto"/>
                 <column label="Сумма в вал. сделки." draggable="colIssue" droppable="colIssue" onDrop="move(event.dragged)" sort="auto"/>
                 <column label="Дата выдачи." draggable="colIssue" droppable="colIssue" onDrop="move(event.dragged)" sort="auto"/>
+            </columns>-->
+            <columns children="@load(nivm.visibleColumns)">
+                <template name="children" var="columnInfo">
+                    <column label="@load(columnInfo.label)" sort="auto(${columnInfo.value})"></column>
+                </template>
             </columns>
             <rows>
                 <row draggable="row" droppable="row" onDrop="move(event.dragged)">
