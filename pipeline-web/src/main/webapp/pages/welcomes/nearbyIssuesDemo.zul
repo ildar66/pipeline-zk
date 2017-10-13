@@ -1,8 +1,6 @@
-<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
 <zk>
-    <window apply="org.zkoss.bind.BindComposer" border="none" title="Выдачи, ближайшие"
-            viewModel="@id('vm') @init('ru.masterdm.spo.pipeline.viewmodel.NearbyIssuesViewModel')">
-        <grid model="@load(vm.issues)" mold="paging" pageSize="5">
+    <window border="none" title="Выдачи, ближайшие">
+        <grid>
             <columns sizable="true" menupopup="auto" >
                 <column label="" />
                 <column label=" " draggable="colIssue" droppable="colIssue" onDrop="move(event.dragged)" sort="auto"/>
@@ -31,5 +29,21 @@
             </rows>
         </grid>
     </window>
+    <zscript><![CDATA[
+  void move(Component dragged) {
+    if(dragged.getClass().getName().endsWith("Column")) {
+        int maxRows=dragged.getGrid().getRows().getChildren().size();
+        int i= dragged.getParent().getChildren().indexOf(dragged);
+        int j= self.getParent().getChildren().indexOf(self);
+
+        //move celles for each row
+        for(int k=0; k < maxRows; k++)
+           self.getGrid().getCell(k,j).parent.insertBefore(self.getGrid()
+              .getCell(k,i),self.getGrid().getCell(k,j));
+   }
+
+    self.parent.insertBefore(dragged, self);
+  }
+]]></zscript>
 </zk>
 
