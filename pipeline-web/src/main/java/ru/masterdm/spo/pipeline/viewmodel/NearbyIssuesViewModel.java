@@ -3,6 +3,8 @@ package ru.masterdm.spo.pipeline.viewmodel;
 import java.util.ArrayList;
 
 import org.zkoss.bind.annotation.AfterCompose;
+import org.zkoss.bind.annotation.BindingParam;
+import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.Init;
@@ -59,24 +61,14 @@ public class NearbyIssuesViewModel {
 
     /**
      * change columne and row.
-     * @param event
+     * @param drag
+     * @param drop
      */
-    @NotifyChange({"visibleColumns", "issues"})
-    public void move(org.zkoss.zk.ui.event.DropEvent event) {
-        Column dragged = (Column) event.getDragged();
-        Column self = (Column) event.getTarget();
-        if (dragged.getClass().getName().endsWith("Column")) {
-            int maxRows = dragged.getGrid().getRows().getChildren().size();
-            int i = dragged.getParent().getChildren().indexOf(dragged);
-            int j = self.getParent().getChildren().indexOf(self);
-
-            //move celles for each row
-            for (int k = 0; k < maxRows; k++)
-                self.getGrid().getCell(k, j).getParent().insertBefore(self.getGrid()
-                                                                          .getCell(k, i), self.getGrid().getCell(k, j));
-        }
-
-        self.getParent().insertBefore(dragged, self);
+    @Command
+    @NotifyChange({/*"visibleColumns", */"issues"})
+    public void moveCol(@BindingParam("drag") Column drag, @BindingParam("drop") Column drop) {
+        System.out.println("MOVE: drag = " + drag + "; drop=" + drop);
+        System.out.println("MOVE: _columns = " + _columns);
     }
 
     /**
@@ -89,6 +81,7 @@ public class NearbyIssuesViewModel {
     }
 
     public ArrayList<ColumnInfo> getVisibleColumns() {
+        System.out.println("getVisibleColumns");
         return getColumns(Filter.VISIBLE);
     }
 
