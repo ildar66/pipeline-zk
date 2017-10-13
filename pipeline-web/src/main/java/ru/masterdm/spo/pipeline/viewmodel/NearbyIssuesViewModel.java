@@ -22,6 +22,7 @@ public class NearbyIssuesViewModel {
 
     @Init
     public void init() {
+        System.out.println("INIT"); // TODO temp
         _columns = new ArrayList<ColumnInfo>();
         _columns.add(new ColumnInfo("name", " ", true, "label"));
         _columns.add(new ColumnInfo("date", "Дата выдачи.", true, "date"));
@@ -36,6 +37,8 @@ public class NearbyIssuesViewModel {
         data.add(new DealIssue("ГК ПИК", 1980, 1, 20, 12000));
         data.add(new DealIssue("ГК 'Химнефть'", 1982, 2, 11, 15000));
         data.add(new DealIssue("ГК Строитель", 2017, 3, 21, 7000));
+        data.add(new DealIssue("ГК Test", 2014, 6, 7, 17000));
+        data.add(new DealIssue("Кo Мацарелла", 2015, 2, 2, 90000));
 
         return data;
     }
