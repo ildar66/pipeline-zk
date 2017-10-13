@@ -3,17 +3,24 @@
     <window apply="org.zkoss.bind.BindComposer" border="none" title="Выдачи, ближайшие"
             viewModel="@id('nivm') @init('ru.masterdm.spo.pipeline.viewmodel.NearbyIssuesViewModel')">
         <grid model="@load(nivm.issues)" mold="paging" pageSize="5">
-            <!--<columns sizable="true" menupopup="auto" >
-                <column label="" />
-                <column label=" " draggable="colIssue" droppable="colIssue" onDrop="move(event.dragged)" sort="auto"/>
-                <column label="Сумма в вал. сделки." draggable="colIssue" droppable="colIssue" onDrop="move(event.dragged)" sort="auto"/>
-                <column label="Дата выдачи." draggable="colIssue" droppable="colIssue" onDrop="move(event.dragged)" sort="auto"/>
-            </columns>-->
             <columns children="@load(nivm.visibleColumns)">
                 <template name="children" var="columnInfo">
                     <column label="@load(columnInfo.label)" sort="auto(${columnInfo.value})"></column>
                 </template>
             </columns>
+            <template name="model" var="profile">
+                <row children="@init(nivm.visibleColumns) @template(each.templateName)">
+                    <template name="label" var="columnInfo">
+                        <label value="@load(profile[columnInfo.value])"></label>
+                    </template>
+                    <template name="date" var="columnInfo">
+                        <label value="@load(profile[columnInfo.value])"></label>
+                    </template>
+                    <template name="sum" var="columnInfo">
+                        <label value="@load(profile[columnInfo.value])"></label>
+                    </template>
+                </row>
+            </template>
             <rows>
                 <row draggable="row" droppable="row" onDrop="move(event.dragged)">
                     <label value="icon" />
