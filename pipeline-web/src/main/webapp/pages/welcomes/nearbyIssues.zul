@@ -12,15 +12,15 @@
                 </template>
                 <template name="label" var="columnInfo">
                     <column label="@load(columnInfo.label)" sort="auto(${columnInfo.value})"
-                            draggable="colIssue" droppable="colIssue" onDrop="move(event.dragged)"></column>
+                            draggable="colIssue" droppable="colIssue" onDrop="nivm.move(event)"></column>
                 </template>
                 <template name="date" var="columnInfo">
                     <column label="@load(columnInfo.label)" sort="auto(${columnInfo.value})"
-                            draggable="colIssue" droppable="colIssue" onDrop="move(event.dragged)"></column>
+                            draggable="colIssue" droppable="colIssue" onDrop="nivm.move(event)"></column>
                 </template>
                 <template name="sum" var="columnInfo">
                     <column label="@load(columnInfo.label)" sort="auto(${columnInfo.value})"
-                            draggable="colIssue" droppable="colIssue" onDrop="move(event.dragged)"></column>
+                            draggable="colIssue" droppable="colIssue" onDrop="nivm.move(event)"></column>
                 </template>
             </columns>
             <template name="model" var="issue">
@@ -41,7 +41,7 @@
             </template>
         </grid>
     </window>
-    <zscript><![CDATA[
+<!--    <zscript><![CDATA[
       void move(Component dragged) {
         if(dragged.getClass().getName().endsWith("Column")) {
             int maxRows=dragged.getGrid().getRows().getChildren().size();
@@ -56,6 +56,6 @@
 
         self.parent.insertBefore(dragged, self);
       }
-    ]]></zscript>
+    ]]></zscript>-->
 </zk>
 

@@ -6,8 +6,10 @@ import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.Init;
+import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.Selectors;
+import org.zkoss.zul.Column;
 
 import ru.masterdm.spo.pipeline.domain.DealIssue;
 import ru.masterdm.spo.pipeline.util.ColumnInfo;
@@ -53,6 +55,28 @@ public class NearbyIssuesViewModel {
         data.add(new DealIssue("Кo Мацарелла", 2015, 2, 2, 90000));
 
         return data;
+    }
+
+    /**
+     * change columne and row.
+     * @param event
+     */
+    @NotifyChange({"visibleColumns", "issues"})
+    public void move(org.zkoss.zk.ui.event.DropEvent event) {
+        Column dragged = (Column) event.getDragged();
+        Column self = (Column) event.getTarget();
+        if (dragged.getClass().getName().endsWith("Column")) {
+            int maxRows = dragged.getGrid().getRows().getChildren().size();
+            int i = dragged.getParent().getChildren().indexOf(dragged);
+            int j = self.getParent().getChildren().indexOf(self);
+
+            //move celles for each row
+            for (int k = 0; k < maxRows; k++)
+                self.getGrid().getCell(k, j).getParent().insertBefore(self.getGrid()
+                                                                          .getCell(k, i), self.getGrid().getCell(k, j));
+        }
+
+        self.getParent().insertBefore(dragged, self);
     }
 
     /**
