@@ -1,6 +1,6 @@
 <zk>
     <window border="none" title="Избранное">
-        <grid>
+        <grid mold="paging" pageSize="3">
             <columns sizable="true" menupopup="auto" >
                 <column label="" />
                 <column label="Избранное" draggable="colFav" droppable="colFav" onDrop="move(event.dragged)" sort="auto"/>

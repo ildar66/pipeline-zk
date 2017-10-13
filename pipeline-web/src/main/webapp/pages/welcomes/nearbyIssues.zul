@@ -2,7 +2,7 @@
 <zk>
     <window apply="org.zkoss.bind.BindComposer" border="none" title="Выдачи, ближайшие"
             viewModel="@id('nivm') @init('ru.masterdm.spo.pipeline.viewmodel.NearbyIssuesViewModel')">
-        <grid model="@load(nivm.issues)" mold="paging" pageSize="4">
+        <grid model="@load(nivm.issues)" mold="paging" pageSize="5">
             <columns children="@init(nivm.visibleColumns) @template(each.templateName)" menupopup="auto">
                 <!--<template name="children" var="columnInfo">
                     <column label="@load(columnInfo.label)" sort="auto(${columnInfo.value})"></column>
@@ -11,32 +11,51 @@
                     <column label="@load(columnInfo.label)"></column>
                 </template>
                 <template name="label" var="columnInfo">
-                    <column label="@load(columnInfo.label)" sort="auto(${columnInfo.value})"></column>
+                    <column label="@load(columnInfo.label)" sort="auto(${columnInfo.value})"
+                            draggable="colIssue" droppable="colIssue" onDrop="move(event.dragged)"></column>
                 </template>
                 <template name="date" var="columnInfo">
-                    <column label="@load(columnInfo.label)" sort="auto(${columnInfo.value})"></column>
+                    <column label="@load(columnInfo.label)" sort="auto(${columnInfo.value})"
+                            draggable="colIssue" droppable="colIssue" onDrop="move(event.dragged)"></column>
                 </template>
                 <template name="sum" var="columnInfo">
-                    <column label="@load(columnInfo.label)" sort="auto(${columnInfo.value})"></column>
+                    <column label="@load(columnInfo.label)" sort="auto(${columnInfo.value})"
+                            draggable="colIssue" droppable="colIssue" onDrop="move(event.dragged)"></column>
                 </template>
             </columns>
             <template name="model" var="issue">
-                <row children="@init(nivm.visibleColumns) @template(each.templateName)">
+                <row children="@load(nivm.visibleColumns) @template(each.templateName)">
                     <template name="icon" var="columnInfo">
                         <label value="icon"></label>
                     </template>
                     <template name="label" var="columnInfo">
-                        <label value="@load(issue[columnInfo.value])"></label>
+                        <label value="${issue[columnInfo.value]}"></label>
                     </template>
                     <template name="date" var="columnInfo">
-                        <label value="@load(issue[columnInfo.value])"></label>
+                        <label value="${issue[columnInfo.value]}"></label>
                     </template>
                     <template name="sum" var="columnInfo">
-                        <label value="@load(issue[columnInfo.value])"></label>
+                        <label value="${issue[columnInfo.value]}"></label>
                     </template>
                 </row>
             </template>
         </grid>
     </window>
+    <zscript><![CDATA[
+      void move(Component dragged) {
+        if(dragged.getClass().getName().endsWith("Column")) {
+            int maxRows=dragged.getGrid().getRows().getChildren().size();
+            int i= dragged.getParent().getChildren().indexOf(dragged);
+            int j= self.getParent().getChildren().indexOf(self);
+
+            //move celles for each row
+            for(int k=0; k < maxRows; k++)
+               self.getGrid().getCell(k,j).parent.insertBefore(self.getGrid()
+                  .getCell(k,i),self.getGrid().getCell(k,j));
+       }
+
+        self.parent.insertBefore(dragged, self);
+      }
+    ]]></zscript>
 </zk>
 

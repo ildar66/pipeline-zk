@@ -2,7 +2,12 @@ package ru.masterdm.spo.pipeline.viewmodel;
 
 import java.util.ArrayList;
 
+import org.zkoss.bind.annotation.AfterCompose;
+import org.zkoss.bind.annotation.ContextParam;
+import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.Init;
+import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.select.Selectors;
 
 import ru.masterdm.spo.pipeline.domain.DealIssue;
 import ru.masterdm.spo.pipeline.util.ColumnInfo;
@@ -32,6 +37,12 @@ public class NearbyIssuesViewModel {
         _data = provideData();
     }
 
+    @AfterCompose
+    public void afterCompose(@ContextParam(ContextType.VIEW) Component view) {
+        System.out.println("afterCompose"); // TODO temp
+        Selectors.wireComponents(view, this, false);
+    }
+
     private ArrayList<DealIssue> provideData() {
         ArrayList<DealIssue> data = new ArrayList<DealIssue>();
 
@@ -49,6 +60,7 @@ public class NearbyIssuesViewModel {
      * @return
      */
     public ArrayList<DealIssue> getIssues() {
+        System.out.println("getIssues");
         return _data;
     }
 
