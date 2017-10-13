@@ -2,7 +2,7 @@
 <zk>
     <window apply="org.zkoss.bind.BindComposer" border="none" title="Выдачи, ближайшие"
             viewModel="@id('nivm') @init('ru.masterdm.spo.pipeline.viewmodel.NearbyIssuesViewModel')">
-        <grid model="@load(nivm.issues)" mold="paging" pageSize="5">
+        <grid model="@load(nivm.issues)" mold="paging" pageSize="3">
             <columns children="@init(nivm.visibleColumns) @template(each.templateName)" menupopup="auto">
                 <!--<template name="children" var="columnInfo">
                     <column label="@load(columnInfo.label)" sort="auto(${columnInfo.value})"></column>

@@ -65,10 +65,14 @@ public class NearbyIssuesViewModel {
      * @param drop
      */
     @Command
-    @NotifyChange({/*"visibleColumns", */"issues"})
+    @NotifyChange({"visibleColumns", "issues"})
     public void moveCol(@BindingParam("drag") Column drag, @BindingParam("drop") Column drop) {
-        System.out.println("MOVE: drag = " + drag + "; drop=" + drop);
+        System.out.println("MOVE: drag = " + drag.getLabel() + "; drop=" + drop.getLabel());
         System.out.println("MOVE: _columns = " + _columns);
+        // TODO temp shift
+        drop.getParent().insertBefore(drag, drop);
+        ColumnInfo zero = _columns.remove(0);
+        _columns.add(zero);
     }
 
     /**
