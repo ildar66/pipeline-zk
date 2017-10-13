@@ -24,6 +24,7 @@ public class NearbyIssuesViewModel {
     public void init() {
         System.out.println("INIT"); // TODO temp
         _columns = new ArrayList<ColumnInfo>();
+        _columns.add(new ColumnInfo("name", "", true, "icon"));
         _columns.add(new ColumnInfo("name", " ", true, "label"));
         _columns.add(new ColumnInfo("date", "Дата выдачи.", true, "date"));
         _columns.add(new ColumnInfo("sum", "Сумма в вал. сделки.", true, "sum"));

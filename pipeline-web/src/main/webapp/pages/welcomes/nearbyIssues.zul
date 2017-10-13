@@ -2,45 +2,28 @@
 <zk>
     <window apply="org.zkoss.bind.BindComposer" border="none" title="Выдачи, ближайшие"
             viewModel="@id('nivm') @init('ru.masterdm.spo.pipeline.viewmodel.NearbyIssuesViewModel')">
-        <grid model="@load(nivm.issues)" mold="paging" pageSize="3">
+        <grid model="@load(nivm.issues)" mold="paging" pageSize="4">
             <columns children="@load(nivm.visibleColumns)" menupopup="auto">
                 <template name="children" var="columnInfo">
                     <column label="@load(columnInfo.label)" sort="auto(${columnInfo.value})"></column>
                 </template>
             </columns>
-            <template name="model" var="profile">
+            <template name="model" var="issue">
                 <row children="@init(nivm.visibleColumns) @template(each.templateName)">
+                    <template name="icon" var="columnInfo">
+                        <label value="icon"></label>
+                    </template>
                     <template name="label" var="columnInfo">
-                        <label value="@load(profile[columnInfo.value])"></label>
+                        <label value="@load(issue[columnInfo.value])"></label>
                     </template>
                     <template name="date" var="columnInfo">
-                        <label value="@load(profile[columnInfo.value])"></label>
+                        <label value="@load(issue[columnInfo.value])"></label>
                     </template>
                     <template name="sum" var="columnInfo">
-                        <label value="@load(profile[columnInfo.value])"></label>
+                        <label value="@load(issue[columnInfo.value])"></label>
                     </template>
                 </row>
             </template>
-            <rows>
-                <row draggable="row" droppable="row" onDrop="move(event.dragged)">
-                    <label value="icon" />
-                    <label value="ГК ПИК" />
-                    <label value="12 000 млн.руб" />
-                    <label value="31.09.2017" />
-                </row>
-                <row draggable="row" droppable="row" onDrop="move(event.dragged)">
-                    <label value="icon" />
-                    <label value="ГК 'Химнефть'" />
-                    <label value="15 000 млн.руб" />
-                    <label value="01.10.2017" />
-                </row>
-                <row draggable="row" droppable="row" onDrop="move(event.dragged)">
-                    <label value="icon" />
-                    <label value="ГК Строитель" />
-                    <label value="7 000 млн.руб" />
-                    <label value="30.10.2017" />
-                </row>
-            </rows>
         </grid>
     </window>
 </zk>
