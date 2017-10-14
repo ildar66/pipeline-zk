@@ -53,7 +53,7 @@ public class NearbyIssuesViewModel extends BaseTableViewModel {
     }
 
     /**
-     * change columne and row.
+     * drag and drop columns.
      * @param dragColumn
      * @param dropColumn
      */
