@@ -113,6 +113,7 @@ public class LayoutVM {
                                   @BindingParam(value = "targetTab") String targetTab,
                                   @BindingParam("data") @Default("") String data,
                                   @BindingParam("key") @Default("") String key) {
+        System.out.println("key=" + key);// TODO temp
         homePage = targetPage.equals("welcome");
         currentTab = targetTab;
         navigationData = data;
