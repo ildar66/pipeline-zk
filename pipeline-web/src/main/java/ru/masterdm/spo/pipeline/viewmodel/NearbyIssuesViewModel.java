@@ -9,17 +9,16 @@ import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zul.Column;
 
 import ru.masterdm.spo.pipeline.domain.DealIssue;
+import ru.masterdm.spo.pipeline.util.BaseTableViewModel;
 import ru.masterdm.spo.pipeline.util.ColumnInfo;
 
 /**
  * Ближайшие выдачи по сделке View Model.
  * Created by Ildar Shafigullin on 13.10.2017.
  */
-public class NearbyIssuesViewModel {
+public class NearbyIssuesViewModel extends BaseTableViewModel {
 
     private ArrayList<DealIssue> _data;
-
-    private ArrayList<ColumnInfo> _columns;
 
    /* @Wire
     Columnchooser columnchooser;*/
@@ -61,22 +60,7 @@ public class NearbyIssuesViewModel {
     @Command
     @NotifyChange({"issues"})
     public void moveCol(@BindingParam("drag") Column dragColumn, @BindingParam("drop") Column dropColumn) {
-        int dragColumnIndex = getIndexColumn(dragColumn.getLabel());
-        ColumnInfo dragged = _columns.remove(dragColumnIndex);
-        int dropColumnIndex = getIndexColumn(dropColumn.getLabel());
-        _columns.add(dropColumnIndex, dragged);
-        dropColumn.getParent().insertBefore(dragColumn, dropColumn);
-    }
-
-    private int getIndexColumn(String label) {
-        int index = -1;
-        for (int i = 0; i < _columns.size(); i++) {
-            if (_columns.get(i).getLabel().equals(label)) {
-                index = i;
-                break;
-            }
-        }
-        return index;
+        swapColumns(dragColumn, dropColumn);
     }
 
     /**
@@ -87,35 +71,4 @@ public class NearbyIssuesViewModel {
         return _data;
     }
 
-    public ArrayList<ColumnInfo> getVisibleColumns() {
-        return getColumns(Filter.VISIBLE);
-    }
-
-    private ArrayList<ColumnInfo> getColumns(Filter filter) {
-        ArrayList<ColumnInfo> list = new ArrayList<ColumnInfo>();
-        for (ColumnInfo info : _columns) {
-            if (filter.accept(info))
-                list.add(info);
-        }
-        return list;
-    }
-
-    interface Filter {
-
-        public boolean accept(ColumnInfo info);
-
-        Filter VISIBLE = new Filter() {
-
-            public boolean accept(ColumnInfo info) {
-                return info.isVisible();
-            }
-        };
-
-        Filter HIDDEN = new Filter() {
-
-            public boolean accept(ColumnInfo info) {
-                return !info.isVisible();
-            }
-        };
-    }
 }
