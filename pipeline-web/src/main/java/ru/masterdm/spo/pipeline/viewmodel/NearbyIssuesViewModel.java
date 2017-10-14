@@ -2,15 +2,10 @@ package ru.masterdm.spo.pipeline.viewmodel;
 
 import java.util.ArrayList;
 
-import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
-import org.zkoss.bind.annotation.ContextParam;
-import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
-import org.zkoss.zk.ui.Component;
-import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zul.Column;
 
 import ru.masterdm.spo.pipeline.domain.DealIssue;
@@ -22,16 +17,15 @@ import ru.masterdm.spo.pipeline.util.ColumnInfo;
  */
 public class NearbyIssuesViewModel {
 
-    ArrayList<DealIssue> _data;
+    private ArrayList<DealIssue> _data;
 
-    ArrayList<ColumnInfo> _columns;
+    private ArrayList<ColumnInfo> _columns;
 
    /* @Wire
     Columnchooser columnchooser;*/
 
     @Init
     public void init() {
-        System.out.println("INIT"); // TODO temp
         _columns = new ArrayList<ColumnInfo>();
         _columns.add(new ColumnInfo("name", "", true, "icon"));
         _columns.add(new ColumnInfo("name", " ", true, "label"));
@@ -41,11 +35,11 @@ public class NearbyIssuesViewModel {
         _data = provideData();
     }
 
-    @AfterCompose
+/*    @AfterCompose
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view) {
         System.out.println("afterCompose"); // TODO temp
         Selectors.wireComponents(view, this, false);
-    }
+    }*/
 
     private ArrayList<DealIssue> provideData() {
         ArrayList<DealIssue> data = new ArrayList<DealIssue>();
@@ -61,18 +55,28 @@ public class NearbyIssuesViewModel {
 
     /**
      * change columne and row.
-     * @param drag
-     * @param drop
+     * @param dragColumn
+     * @param dropColumn
      */
     @Command
-    @NotifyChange({"visibleColumns", "issues"})
-    public void moveCol(@BindingParam("drag") Column drag, @BindingParam("drop") Column drop) {
-        System.out.println("MOVE: drag = " + drag.getLabel() + "; drop=" + drop.getLabel());
-        System.out.println("MOVE: _columns = " + _columns);
-        // TODO temp shift
-        drop.getParent().insertBefore(drag, drop);
-        ColumnInfo zero = _columns.remove(0);
-        _columns.add(zero);
+    @NotifyChange({"issues"})
+    public void moveCol(@BindingParam("drag") Column dragColumn, @BindingParam("drop") Column dropColumn) {
+        int dragColumnIndex = getIndexColumn(dragColumn.getLabel());
+        ColumnInfo dragged = _columns.remove(dragColumnIndex);
+        int dropColumnIndex = getIndexColumn(dropColumn.getLabel());
+        _columns.add(dropColumnIndex, dragged);
+        dropColumn.getParent().insertBefore(dragColumn, dropColumn);
+    }
+
+    private int getIndexColumn(String label) {
+        int index = -1;
+        for (int i = 0; i < _columns.size(); i++) {
+            if (_columns.get(i).getLabel().equals(label)) {
+                index = i;
+                break;
+            }
+        }
+        return index;
     }
 
     /**
@@ -80,12 +84,10 @@ public class NearbyIssuesViewModel {
      * @return
      */
     public ArrayList<DealIssue> getIssues() {
-        System.out.println("getIssues");
         return _data;
     }
 
     public ArrayList<ColumnInfo> getVisibleColumns() {
-        System.out.println("getVisibleColumns");
         return getColumns(Filter.VISIBLE);
     }
 
